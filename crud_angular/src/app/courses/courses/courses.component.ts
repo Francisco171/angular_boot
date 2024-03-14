@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Course } from '../model/course';
+import { CoursesService } from './../services/courses.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -7,9 +11,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoursesComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit(): void {
+  courses:Observable<Course[]>;
+  displayedColumns = ['name', 'category', 'actions'];
+
+  constructor(
+    private coursesService: CoursesService,
+    // public dialog: MatDialog,
+    private router: Router
+    )
+
+    {
+    this.courses = this.coursesService.list();
+
   }
 
+  ngOnInit(): void {
+
+  }
+
+  onAdd() {
+    //this.router.navigate(commands:['courses/new']);
+    }
 }
